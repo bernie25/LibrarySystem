@@ -1,12 +1,22 @@
-from django.contrib.auth.models import User
-#from rest_framework import viewsets
-from rest_framework import permissions 
-from main.serializers import UserSerializer
-from rest_framework.views import APIView
+# from rest_framework.views import APIView
+# from .models import LibrarySystem
+# from .serializers import LibrarySystemSerializer
+# from rest_framework import viewsets 
+# from django.shortcuts import render
 
-class User(APIView):
-    # queryset = User.objects.all().order_by('-date_joined')
-    # serializer_class = UserSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+# class LibrarySystemView(APIView):
+#     serializer_class = LibrarySystemSerializer
+#     queryset = LibrarySystem.objects.all()
+    
+#     # def get(self, request, *args, **kwargs):
+#     #         """This is to fetch the list."""
+#     #         return Response()
+    
+#     # def home(request):      
+#     #     return render(request=request, template_name="user.html")
 
-    print('Please wait while the program is loading...')
+
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello")

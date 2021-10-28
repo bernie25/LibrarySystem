@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
+from .models import LibrarySystem
 from rest_framework import serializers
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class LibrarySystemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email']
+        model = LibrarySystem
+        fields = ['id', 'title']
