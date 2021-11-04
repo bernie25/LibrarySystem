@@ -5,6 +5,10 @@ def index(request):
     return HttpResponse("Hello")
 
 #Add a book to the library
+def homePage(request):
+    return render(request, 'homePage.html')
+
+#Add a book to the library
 def addBook(request):
     if request.method == 'POST':
         print(type(request.POST))
