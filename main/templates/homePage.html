@@ -1,0 +1,75 @@
+<!-- Bernie -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Booking System</title>
+    
+    <style type="text/css" media="screen">
+        /* All of document */
+        * {
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        /* Style the header */
+        header {
+            background-color: #8abaae;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: #006a4e;
+        }
+
+        /* Style the footer */
+        footer {
+            background-color: #8abaae;
+            padding: 10px;
+            text-align: center;
+            color: #006a4e;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-column-gap: 50px;
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+        @media (max-width: 600px) {
+            nav, article {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>University of Limerick Library</header>
+    
+    <div class="grid-container">
+        <div class="grid-item">View Library</div>
+        <div class="grid-item">View Library</div>
+
+    </div>
+<!--     
+    <form method="POST">{%csrf_token%}
+        <div class="form-group">
+            <input type="text" id="bookName" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button> 
+    </form> -->
+
+    <footer>Thank you</footer>
+</body>
+</html>
+
