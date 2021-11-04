@@ -2,9 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- <link rel="stylesheet" href="css/custom.css"> -->
+
     <title>Library Booking System</title>
     
     <style type="text/css" media="screen">
+    
         /* All of document */
         * {
             box-sizing: border-box;
@@ -28,12 +31,13 @@
             color: #006a4e;
         }
 
-        .grid-container {
+        .menu {
             display: grid;
             grid-column-gap: 50px;
         }
 
-        .grid-item {
+
+        .menu-labels {
             background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -56,9 +60,10 @@
 
     <header>University of Limerick Library</header>
     
-    <div class="grid-container">
-        <div class="grid-item">View Library</div>
-        <div class="grid-item">View Library</div>
+    <div class="menu">
+        <div class="menu-labels">View Library</div>
+        <div class="menu-labels">View Bookings</div>
+        <div class="menu-labels">Return Book</div>
 
     </div>
 <!--     
