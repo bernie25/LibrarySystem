@@ -19,6 +19,7 @@ def addBook(request):
 def booking(request):
     return render(request, 'booking.html')
 
+
 #Return Book
 
 #Report Book
