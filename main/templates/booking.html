@@ -1,0 +1,100 @@
+<!-- Brief Description: User selects desired book and system checks that it is available;
+     if so user can rent, if not user can sign up to subscription service -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Bookings</title>
+
+    <style type="text/css" media="screen">
+    
+        /* All of document */
+        * {
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        /* Style the header */
+        header {
+            background-color: #8abaae;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: #006a4e;
+        }
+
+        /* Style the footer */
+        footer {
+            background-color: #8abaae;
+            padding: 10px;
+            text-align: center;
+            color: #006a4e;
+            margin-top: 280px; 
+            position: relative;      
+        }
+
+        .menu {
+            display: grid;
+            grid-column-gap: 50px;
+        }
+
+
+        .menu-labels {
+            background-color: #b8d5cd;
+            border: thick solid #006a4e;
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+            color: #006a4e;
+            width: 300px;
+            height: 200px;
+            margin: auto;            
+            justify-content: space-between;
+        }
+
+        .timeLeft{
+            font-size:smaller;
+            background-color: #8abaae;
+        }
+
+        .details {
+            background-color: #8abaae;
+        }
+        
+        /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+        @media (max-width: 600px) {
+            nav, article {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>Your Bookings</header>
+    
+    <h3>By the end this page should access the Library
+        and be able to show what books are on loan and how long
+        is left. 
+    </h3>
+
+    <div class="menu-labels">
+        <form action="/addBook/" id="details">
+            <button type="submit" value="bookName">Martin Fowler</button> 
+            <br>
+            <timeLeft>5 days remaining</timeLeft>
+        </form>
+    </div>
+    <div class="menu-labels">
+        <a href="/addBook/">
+            <button type="submit" value="bookName">3 Amigos</button> 
+            <br>
+            <timeLeft>5 days remaining</timeLeft>
+        </a>
+    </div>
+
+    <footer>Thank you</footer>
+</body>
+</html>
+

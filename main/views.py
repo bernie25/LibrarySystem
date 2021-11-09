@@ -15,9 +15,9 @@ def addBook(request):
     }
     return render(request, 'addBook.html', context=context)
 
-#Login
-
-#Logout
+#Booking
+def booking(request):
+    return render(request, 'booking.html')
 
 #Return Book
 
