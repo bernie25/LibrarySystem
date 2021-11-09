@@ -1,26 +1,3 @@
-#Database layout
-
-from django.db import models
-
-class LibrarySystem(models.Model):
-    book_name = models.CharField(max_length=200)
-
-    def _str_(self):
-        return self.title
-
-
-        #Business logic
-        # 
-        #Design patterns, Added Value 
-        #Factory method - Loan Book - instead of new
-
-class Book(models.Model):
-    book_name = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-
-    
-    def _str_(self):
-        return self.title
 #imports
 from django.db import models
 from django.contrib.auth.models import User
@@ -59,14 +36,16 @@ class IssueBook(models.Model):
         return self.studentid
 
 #redirects the user to the page where the book can be returned by entering the bookid
-class ReturnBook(models.Model):
+class returnBook(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     bookid2=models.CharField(max_length=20)
 
-#
+#AddStudent() model stores the details of the student in the libarary system
 class AddStudent(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
+    #CharFireld() stores strings in the database.
     sname=models.CharField(max_length=30)
     studentid=models.CharField(max_length=20)
     def __str__(self):
         return self.sname+'['+str(self.studentid)+']'
+

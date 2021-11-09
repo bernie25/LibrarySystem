@@ -1,7 +1,26 @@
-# from django.contrib import admin
-# from .models import LibrarySystem
+from django.contrib import admin
+from .models import AddBook,IssueBook,ReturnBook,AddStudent
 
-# class LibrarySystemAdmin(admin.ModelAdmin):
-#     list_display = ('title')
+# Register your models from models.py here.
+#From here they can be seen in the database
+from django.contrib.sessions.models import Session
+admin.site.register(Session)
+from .models import UserExtend
+admin.site.register(UserExtend)
+class AddBook_Admin(admin.ModelAdmin):
+    list_display=("user","bookid","bookname","subject","category")
+admin.site.register(AddBook,AddBook_Admin)
+class IssueBookAdmin(admin.ModelAdmin):
+    list_display=("user","book1","studentid")
+admin.site.register(IssueBook,IssueBookAdmin)
+class ReturnBookAdmin(admin.ModelAdmin):
+    list_display=("user","bookid2")
+admin.site.register(ReturnBook,ReturnBookAdmin)
+class AddStudentAdmin(admin.ModelAdmin):
+    list_display=("user","sname","studentid")
+admin.site.register(AddStudent,AddStudentAdmin)
 
-# admin.site.register(LibrarySystem, LibrarySystemAdmin)
+#To access the database you need to create a superuser.
+#  To create a superuser, run the command python manage.py createsuperuser.
+#  It will prompt you to enter the username, password and email.
+#jessica, jessoflynn1@gmail.com, library

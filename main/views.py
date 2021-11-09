@@ -1,20 +1,19 @@
-#imports
+from django.shortcuts import render,HttpResponse,redirect
 #Render: HttpResponse object is returned and it also combines the template with the dictionary that is passed in render.
 # HttpResponse:Text Response is displayed to the user with HttpResponse.
 #Redirect: It redirects the user to the desired page.
-from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.sessions.models import Session
-#User: Authorization and authentication are handled with User.
 from django.contrib.auth.models import User
-#messages: It helps in displaying messages to the user.
+#Authorization and authentication are handled with User.
 from django.contrib import messages
+#It helps in displaying messages to the user.
 from datetime import datetime,timedelta,date
-from .models import IssueBook, UserExtend,AddBook,ReturnBook,AddStudent
-#authenticate : A person can only log in if the user is a registered user. This work is done by authenticate.
+from .models import IssueBook, UserExtend,AddBook,returnBook,AddStudent
+#A person can only log in if the user is a registered user.
 from django.contrib.auth import authenticate ,logout
 from django.contrib.auth import login as dj_login
 
-# index() redirects to the home page.
+#index() redirects to the home page.
 def index(request):
     return render(request,'index.html')
 
@@ -22,45 +21,29 @@ def index(request):
 def staff(request):
     return render(request,'staff.html')
 
-# stafflogin() redirects to the login page if a person is not logged in and if a person is logged in he/she will be redirected to the dashboard.
+#staffLogin() redirects to the login page if a person is not logged in and if a person is logged in he/she will be redirected to the dashboard.
 def staffLogin(request):
     if request.session.has_key('is_logged'):
         return redirect('dashboard')
     return render(request,'staffLogin.html')
 
-#staffsignup() redirects to the signup page.
+#staffSignup() redirects to the signup page.
 def staffSignup(request):
     return render(request,'staffSignup.html')
 
-#dashboard() redirects to the dashboard and displays all the books that are added.
+#Dashboard & displays all the books that are added.
 def dashboard(request):
     if request.session.has_key('is_logged'):
         Book = AddBook.objects.all()
         return render(request,'dashboard.html',{'Book':Book})
     return redirect('staffLogin')
 
-#addBook() redirects to the page where the book can be added.
-def addBook(request):
+#addbook() redirects to the page where the book can be added.
+def addbook(request):
     Book = AddBook.objects.all()
     return render(request,'addBook.html',{'Book':Book})
 
-#AddBookSubmission() handles the backend of the adding book page. It stores bookid, book name, subject and category entered by the user in the database.
-def addBookSubmission(request):
-    if request.session.has_key('is_logged'):
-        if request.method == "POST":
-            user_id = request.session["user_id"]
-            user1 = User.objects.get(id=user_id)
-            bookid = request.POST["bookid"]
-            bookname = request.POST["bookname"]
-            subject = request.POST["subject"]
-            category=request.POST["category"]
-            add = AddBook(user = user1,bookid=bookid,bookname=bookname,subject=subject,category=category)
-            add.save()
-            Book = AddBook.objects.all()
-            return render(request,'dashboard.html',{'Book':Book})
-    return redirect('/')
-
-#SignupBackend() handles the backend of signup form.
+# signupBackend() handles the backend of signup form.
 def signupBackend(request):
     if request.method =='POST':
             uname = request.POST["uname"]
@@ -97,7 +80,10 @@ def signupBackend(request):
     else:
         return HttpResponse('404 - NOT FOUND ')
 
-#LoginBackend() handles the backend of login form. 
+#loginBackend() handles the backend of login form. To sign up a person needs to enter the username,
+#  first name , last name , email , phone number and password.
+#loginBackend() checks whether a person is a registered user or not. 
+# If the person is registered he/she will be directed to the dashboard.
 def loginBackend(request):
     if request.method =='POST':
         loginuname = request.POST["loginuname"]
@@ -115,7 +101,23 @@ def loginBackend(request):
             return redirect("/")  
     return HttpResponse('404-not found')
 
-#deletebook() deletes the details of the book that is added. If a user is logged in, the selected row will be deleted with the help of delete() and after deleting the user will be redirected to the dashboard.
+#adding a book submossion
+def AddBookSubmission(request):
+    if request.session.has_key('is_logged'):
+        if request.method == "POST":
+            user_id = request.session["user_id"]
+            user1 = User.objects.get(id=user_id)
+            bookid = request.POST["bookid"]
+            bookname = request.POST["bookname"]
+            subject = request.POST["subject"]
+            category=request.POST["category"]
+            add = AddBook(user = user1,bookid=bookid,bookname=bookname,subject=subject,category=category)
+            add.save()
+            Book = AddBook.objects.all()
+            return render(request,'dashboard.html',{'Book':Book})
+    return redirect('/')
+
+#eletebook() deletes the details of the book that is added. If a user is logged in, the selected row will be deleted with the help of delete() and after deleting the user will be redirected to the dashboard.
 def deleteBook(request,id):
     if request.session.has_key('is_logged'):
         AddBook_info = AddBook.objects.get(id=id)
@@ -123,7 +125,7 @@ def deleteBook(request,id):
         return redirect("dashboard")
     return redirect("login") 
 
-#bookissue() redirects the user to the page where the book can be issued by entering the details of bookid and studentid.
+#bookIssue() redirects the user to the page where the book can be issued by entering the details of bookid and studentid.
 def bookIssue(request):
     return render(request,'bookIssue.html')
 
@@ -131,7 +133,7 @@ def bookIssue(request):
 def returnBook(request):
     return render(request,'returnBook.html')
 
-#handles the backend of the return book page.
+#Logging out
 def HandleLogout(request):
         del request.session['is_logged']
         del request.session["user_id"] 
@@ -160,29 +162,32 @@ def issueBookSubmission(request):
             return render(request,'bookIssue.html',{'Issue':Issue})
        return redirect('/')
 
-#handles the backend of the return book page. It stores the bookid of the book that is returned in the database and also it changes the status of the book to Not-Issued in the database as well as in the table displayed on the dashboard.
-def returnBookSubmission(request):
+#vhandles the backend of the return book page. 
+#stores the bookid of the book that is returned in the database and also it changes the status of the book to Not-Issued in the database as well as in the table displayed on the dashboard.
+def returnBooksubmission(request):
     if request.method=='POST':
             user_id = request.session["user_id"]
             user1 = User.objects.get(id=user_id)
             bookid2=request.POST['bookid2']
             store1=AddBook.objects.filter(bookid=bookid2)
-            def return_book(returnbook):
-                if returnbook.category=="Issued":
-                    returnbook.category="Not-Issued"
-                    obj1=ReturnBook(user=user1,bookid2=bookid2)
+            def return_book(returnBook):
+                if returnBook.category=="Issued":
+                    returnBook.category="Not-Issued"
+                    obj1=returnBook(user=user1,bookid2=bookid2)
                     obj=IssueBook.objects.filter(book1=bookid2)
                     obj.delete()
                     obj1.save()
-                    returnbook.save()
+                    returnBook.save()
                 else:
                     messages.error(request," Book not  issued !!!")
             returncategorylist=list(set(map(return_book,store1)))
-            Return= ReturnBook.objects.all()
+            Return= returnBook.objects.all()
             return render(request,'returnBook.html',{'Return':Return})
     return redirect('/')
 
-#Search() helps in searching the information related to books displayed on the dashboard. The user can get the details of the book by entering the bookid in the search bar.
+
+#Search() helps in searching the information related to books displayed on the dashboard.
+#he user can get the details of the book by entering the bookid in the search bar.
 def Search(request):
     if request.session.has_key('is_logged'):
         query2=request.GET["query2"]
@@ -190,15 +195,15 @@ def Search(request):
         params={'Book':Book}
         return render(request,'dashboard.html',params)
     return redirect("login") 
-    
+
 #gets the details of the book which is to be edited and opens the edit form.
-def editBookDetails(request,id):
+def editbookDetails(request,id):
     if request.session.has_key('is_logged'):
         Book = AddBook.objects.get(id=id)
         return render(request,'editDetails.html',{'Book':Book})
     return redirect('login')
 
-#stores the new details of the user in the database and updates the details in the table displayed on the dashboard
+#stores the new details of the user in the database and updates the details in the table displayed on the dashboard.
 def updateDetails(request,id):
     if request.session.has_key('is_logged'):
         if request.method=="POST":
@@ -211,30 +216,29 @@ def updateDetails(request,id):
                 return redirect("dashboard")
     return redirect('login')
 
-#addstudent() function helps to add the details of the student that are in the college or school.
-def addStudent(request):
+#add student
+def AddSudent(request):
     if request.session.has_key('is_logged'):
        return render(request,'addStudent.html')
     return redirect ('login')
 
-#viewstudents() helps to see all the students that are registered in the library.
-def viewStudents(request):
+#view student list
+def viewstudents(request):
     if request.session.has_key('is_logged'):
         Student=AddStudent.objects.all()
         return render(request,'viewStudents.html',{'Student':Student})
     return redirect('staffLogin')
 
-#searchstudent() helps to search the students that are registered.
-def searchStudent(request):
+#search the students that are registered.
+def Searchstudent(request):
     if request.session.has_key('is_logged'):
         query3=request.GET["query3"]
         Student=AddStudent.objects.filter(studentid__icontains=query3)
         params={'Student':Student}
-        return render(request,'viewStudents.html',params)
+        return render(request,'viewstudents.html',params)
     return redirect("staffLogin") 
-
-#addstudentsubmission() handles the backend of the addstudent form. It stores all the information of this form to the database.
-def addStudentSubmission(request):
+#handles the backend of the addstudent form
+def addstudentsubmission(request):
     if request.session.has_key('is_logged'):
         if request.method == "POST":
             user_id = request.session["user_id"]
@@ -247,12 +251,13 @@ def addStudentSubmission(request):
             return render(request,'addStudent.html',{'Student':Student})
     return redirect('/')
 
-#viewissuedbook() function displays the table of books issued by the user and also the issue date, return date of a book and the fine.
-def viewIssuedBook(request):
+#view all issued books.
+def viewissuedbook(request):
     if request.session.has_key('is_logged'):
         issuedbooks=IssueBook.objects.all()
         lis=[]
         li=[]
+        
         for books in issuedbooks:
             issdate=str(books.issuedate.day)+'-'+str(books.issuedate.month)+'-'+str(books.issuedate.year)
             expdate=str(books.expirydate.day)+'-'+str(books.expirydate.month)+'-'+str(books.expirydate.year)
@@ -281,5 +286,6 @@ def viewIssuedBook(request):
         return render(request,'viewIssuedBook.html',{'lis':lis})
     return redirect('/')
 
-
+    #Still implement design patterns & implement different fines for different books and maybe admin?
+    
 

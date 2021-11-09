@@ -1,8 +1,4 @@
 {%load static%}
-<<<<<<< HEAD
-<!--CSS code from bootstrap and W3Schools-->
-=======
->>>>>>> b4d6ef737e62c8be95c73e41a0d05da34ac8c43a
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -131,8 +127,8 @@ ul li:hover a{
 .form-box {
   position:relative; 
   left:500px; 
-  top:-580px;
-  margin-top:70px;
+  top:-500px;
+  margin-top:80px;
 }
 .form-box form input{
   width:100%;
@@ -165,24 +161,13 @@ body{
  height: 40px;
  clear: both;
 }
-
 </style>
 </head>
 <body>
+</div>
 <div class="sidebar">
 <header>Library Management System</header>
 <ul>
-<<<<<<< HEAD
-  <li><a href="/dashboard/"><i class="fas fa-qrcode"></i> Dashboard</a></li>
-  <li><a href="/addBook/"><i class="fas fa-book"></i> Add Book</a></li>
-  <li><a href="/addStudent/"><i class="fa fa-user"></i> Add Student</a></li>
-  <li><a href="/bookIssue/"><i class="fas fa-paperclip"></i> Issue Book</a></li>
-  <li><a href="/viewIssuedbook/"><i class="fa fa-user"></i> View Issued Book</a></li>
-  <li><a href="/viewStudents/"><i class="fas fa-paperclip"></i> View Student</a></li>
-  <li><a href="/returnBook/"><i class="fas fa-exchange-alt"></i> Return Book</a></li>
-  <li><a href="/HandleLogout/"><i class="fa fa-user"></i> Log Out</a></li>
-  </ul>
-=======
 <li><a href="/dashboard/"><i class="fas fa-qrcode"></i> Dashboard</a></li>
 <li><a href="/addbook/"><i class="fas fa-book"></i> Add Book</a></li>
 <li><a href="/addstudent/"><i class="fa fa-user"></i> Add Student</a></li>
@@ -192,23 +177,17 @@ body{
 <li><a href="/returnbook/"><i class="fas fa-exchange-alt"></i> Return Book</a></li>
 <li><a href="/HandleLogout/"><i class="fa fa-user"></i> Log Out</a></li>
 </ul>
->>>>>>> b4d6ef737e62c8be95c73e41a0d05da34ac8c43a
 <div class="bg-img">
 <div class="form-box">
 <div class="wrapper">
-<form action="/AddBookSubmission/" method="post">
+<form action="/issuebooksubmission/" method="post">
 {% csrf_token %}
-<label for="bookid">Book id:</label>
-<input type="text" name="bookid" class="form-control" id="bookid" required/>
+<label for="book1">Book id:</label>
+<input type="text" name="book1" class="form-control" id="book1" required/>
 <br>
-<label for="bookname">Book Name:</label>
-<input type="text" name="bookname" class="form-control" id="bookname" required/>
+<label for="studentid">Student Id:</label>
+<input type="text" name="studentid" class="form-control" id="studentid" required/>
 <br>
-<label for="subject">Subject:</label>
-<input type="text" name="subject" class="form-control" id="subject" required/>
-<br>
-<label for="status">Status(Issued/Not-Issued):</label>
-<input type="text" name="category" class="form-control" id="category" required/>
 <button type="submit">Submit</button>
 </form>
 </div>

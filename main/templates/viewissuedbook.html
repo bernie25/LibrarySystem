@@ -1,7 +1,4 @@
 {%load static%}
-
-<!--CSS code from bootstrap and W3Schools-->
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -9,9 +6,6 @@
     <title></title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
-
-    <!--main.css also code from bootstrap and W3Schools-->
-
     <style>
     body{
     font-family:'Roboto','sans-serif';
@@ -154,54 +148,36 @@ ul li:hover a{
     letter-spacing:0.05px;
     color: #FFFFFF;
     opacity:1;
-    padding:12px 7px 0px 120px;
+    padding:14px 9px 0px 90px;
     vertical-align:center;
     border:1px solid #000000;
 
+.table tbody tr td 
+{
+    font-size:14 px;
+    Letter-spacing:0.25px;
+    font-weight:normal;
+    background-color:#3cf44
+    padding:8px 0px 0px 13px;
+    text-align:center
+    border:1px solid #000000;
 }
 </style>
 </head>
 <body>
-<div class="topnav">
-  <div class="search-container">
-  <div style = "position:relative; right:120px">
-    <form method="get" action="/Search/">
-      <input type="text" placeholder="Search by bookid" name="query2" id="query2">
-      <button type="submit">Submit</button>
-    </form>
 </div>
   </div>
 </div>
-<div class="messages" id="alert-message">
-  {% for message in messages %}
-  <div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show" role="alert">
-    <strong>Message :</strong>{{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  {% endfor %} 
-</div>
-
-<!--Message alert setTimeout function calls a function or executes a code snippet after a specified delay (in milliseconds)-->
-<script type="text/javascript"> 
-    $(function(){
-    setTimeout(function(){
-        $("#alert-message").hide();
-        }, 2000);
-      });
-    </script>
 <div class="sidebar">
 <header>Library Management System</header>
 <ul>
-<!--class="fas fa-qrcode = Font from FONT AWESOME ICONS etc-->
 <li><a href="/dashboard/"><i class="fas fa-qrcode"></i> Dashboard</a></li>
-<li><a href="/addBook/"><i class="fas fa-book"></i> Add Book</a></li>
-<li><a href="/addStudent/"><i class="fa fa-user"></i> Add Student</a></li>
-<li><a href="/bookIssue/"><i class="fas fa-paperclip"></i> Issue Book</a></li>
-<li><a href="/viewIssuedBook/"><i class="fa fa-user"></i> View Issued Book</a></li>
-<li><a href="/viewStudents/"><i class="fas fa-paperclip"></i> View Student</a></li>
-<li><a href="/returnBook/"><i class="fas fa-exchange-alt"></i> Return Book</a></li>
+<li><a href="/addbook/"><i class="fas fa-book"></i> Add Book</a></li>
+<li><a href="/addstudent/"><i class="fa fa-user"></i> Add Student</a></li>
+<li><a href="/bookissue/"><i class="fas fa-paperclip"></i> Issue Book</a></li>
+<li><a href="/viewissuedbook/"><i class="fa fa-user"></i> View Issued Book</a></li>
+<li><a href="/viewstudents/"><i class="fas fa-paperclip"></i> View Student</a></li>
+<li><a href="/returnbook/"><i class="fas fa-exchange-alt"></i> Return Book</a></li>
 <li><a href="/HandleLogout/"><i class="fa fa-user"></i> Log Out</a></li>
 </ul>
 <div class="box-1">
@@ -209,22 +185,25 @@ ul li:hover a{
                                     <table class="table" id="dataTable" width="100%" cellspacing="0">
                                        <thead>
                                             <tr>
-                                                <th>Book Id</th>
+                                                <th>Student Name</th>
+                                                <th>Student id </th>
                                                 <th>Book Name</th>
                                                 <th>Subject</th>
-                                                <th>Status</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
+                                                <th>Issued Date</th>
+                                                <th>Return Date</th>
+                                                <th>Fine</th>
                                             </tr>
                                         </thead>
-                                    {% for info in Book %}
+                                    {% for info in lis %}
                                             <tr>
-                                                <td data-label="bookid">{{info.bookid}}</td>
-                                                <td data-label="bookname">{{info.bookname}}</td>
-                                                <td data-label="subject">{{info.subject}}</td>
-                                                <td data-label="category">{{info.category}}</td>
-                                                <td><a href="{% url 'editBookDetails' info.id %}" class = " btn btn-success ">Edit</a></td>
-                                                <td><a href="{% url 'deleteBook' info.id %}" class = " btn btn-danger ">Delete</a></td>
+                                                <td>{{info.0}}</td>
+                                                <td>{{info.1}}</td>
+                                                <td>{{info.2}}</td>
+                                                <td>{{info.3}}</td>
+                                                <td>{{info.4}}</td>
+                                                <td>{{info.5}}</td>
+                                                <td>{{info.6}}</td>
+                                                
                                             </tr>
                                  
                                     {% endfor %}
