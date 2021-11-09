@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect 
 from django.forms import inlineformset_factory
+from main.services.requestBook.bookreq import *
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -9,8 +10,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-from .models import *
-from .forms import OrderForm, CreateUserForm
+from main.models import *
+from main.forms import *
 
 
 def index(request):
@@ -79,4 +80,12 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
-	return render(request, '../templates/addBook.html')
+		if(request.GET.get('mybtn')):
+			print("Book now available") 
+		return render(request, '../templates/requestBook.html')
+		# bookAvailableClass()
+
+def reqbook(request):
+
+		
+		return render(request,'../templates/requestBook.html')
