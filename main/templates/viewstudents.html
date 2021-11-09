@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
     <style>
     body{
     font-family:'Roboto','sans-serif';
@@ -124,49 +125,58 @@ ul li:hover a{
 .new{
   text-align: center;
 }
-.form-box {
-  position:relative; 
-  left:500px; 
-  top:-580px;
-  margin-top:70px;
-}
-.form-box form input{
-  width:100%;
-  height:30px;
-  margin-bottom:10px;
-  border: 1px solid #000;
-  margin-top: 10px;
-  margin-right:10px;
-}
-.form-box form button{
-  width:80px;
-  height:30px;
-  border:none;
-  background-color:blue;
-  font-size:16px;
-  color:#fff;
-  font-family:Lato;
-  margin-left:340px;
-}
-body{
-  background-image: url("../static/img/books.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-}
-.form-box form label{
- font-family: Georgia, "Times New Roman", Times, serif;
- font-size: 20px;
- color: #333;
- height: 40px;
- clear: both;
-}
 
+.box-1{
+  position:relative; 
+  left:400px; 
+  top:-600px;
+}
+.table 
+{
+    width:100%;
+    border-collapse:collapse;
+}
+.table thead 
+{
+    background-color:#0000FF;
+    text-align:center;
+}
+.table thead tr th 
+{
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.05px;
+    color: #FFFFFF;
+    opacity:1;
+    padding:14px 9px 0px 120px;
+    vertical-align:center;
+    border:1px solid #000000;
+
+.table tbody tr td 
+{
+    font-size:14 px;
+    Letter-spacing:0.35px;
+    font-weight:normal;
+    background-color:#3cf44;
+    padding:8px 0px 0px 15px;
+    text-align:center;
+    border:1px solid #000000;
+}
 </style>
 </head>
 <body>
+<div class="topnav">
+  <div class="search-container">
+  <div style = "position:relative; right:120px">
+    <form method="get" action="/Searchstudent/">
+      <input type="text" placeholder="Search by studentid" name="query3" id="query3">
+      <button type="submit">Submit</button>
+    </form>
+</div>
+  </div>
+</div>
 <div class="sidebar">
-<header>Library Management System</header>
+<header>TechVidvanLibrary</header>
 <ul>
 <li><a href="/dashboard/"><i class="fas fa-qrcode"></i> Dashboard</a></li>
 <li><a href="/addbook/"><i class="fas fa-book"></i> Add Book</a></li>
@@ -177,28 +187,28 @@ body{
 <li><a href="/returnbook/"><i class="fas fa-exchange-alt"></i> Return Book</a></li>
 <li><a href="/HandleLogout/"><i class="fa fa-user"></i> Log Out</a></li>
 </ul>
-<div class="bg-img">
-<div class="form-box">
-<div class="wrapper">
-<form action="/AddBookSubmission/" method="post">
-{% csrf_token %}
-<label for="bookid">Book id:</label>
-<input type="text" name="bookid" class="form-control" id="bookid" required/>
-<br>
-<label for="bookname">Book Name:</label>
-<input type="text" name="bookname" class="form-control" id="bookname" required/>
-<br>
-<label for="subject">Subject:</label>
-<input type="text" name="subject" class="form-control" id="subject" required/>
-<br>
-<label for="status">Status(Issued/Not-Issued):</label>
-<input type="text" name="category" class="form-control" id="category" required/>
-<button type="submit">Submit</button>
-</form>
-</div>
-</div>
-</div>
+<div class="box-1">
+<div class="table-container">
+                                    <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                       <thead>
+                                            <tr>
+                                                <th>Student Name</th>
+                                                <th>Student Id</th>
+                            
+                                            </tr>
+                                        </thead>
+                                    {% for info in Student %}
+                                            <tr>
+                                                <td data-label="bookid">{{info.sname}}</td>
+                                                <td data-label="bookname">{{info.studentid}}</td>
+                                            </tr>
+                                 
+                                    {% endfor %}
+                                    </tbody>
+                                    </table>
+    </div>
 </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
 </html>
