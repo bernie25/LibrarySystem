@@ -12,6 +12,8 @@ from .models import IssueBook, UserExtend,AddBook,returnBook,AddStudent
 #A person can only log in if the user is a registered user.
 from django.contrib.auth import authenticate ,logout
 from django.contrib.auth import login as dj_login
+from views.userfactory import Userfactory
+
 
 #index() redirects to the home page.
 def index(request):
@@ -100,6 +102,57 @@ def loginBackend(request):
             messages.error(request," Invalid Credentials, Please try again")  
             return redirect("/")  
     return HttpResponse('404-not found')
+
+#register user Factory 
+def register(request):
+    if request.method == 'POST':
+        factory = Userfactory()
+        form = signupForm(request.POST)
+        if form.is_valid():
+            newuser = form.save()
+            factory.createuser(form, newuser)
+            newuser.is_active = False
+            newuser.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your library account'
+            message = render_to_string('registration/acc_active_email.html', {
+                'user': newuser,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(newuser.pk)).decode(),
+                'token': account_activation_token.make_token(newuser),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
+    else:
+        form = signupForm()
+    return render(request, 'signup.html', {'form': form})
+
+
+#Avrivation 
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
+
+
+
+
+
 
 #adding a book submossion
 def AddBookSubmission(request):
