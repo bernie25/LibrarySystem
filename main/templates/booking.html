@@ -80,7 +80,7 @@
     </h3>
 
     <div class="menu-labels">
-        <form action="/addBook/" id="details">
+        <form action="/booking/create/" id="details">
             <button type="submit" value="bookName">Martin Fowler</button> 
             <br>
             <timeLeft>5 days remaining</timeLeft>
@@ -93,6 +93,11 @@
             <timeLeft>5 days remaining</timeLeft>
         </a>
     </div>
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
 
     <footer>Thank you</footer>
 </body>

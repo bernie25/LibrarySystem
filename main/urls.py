@@ -11,12 +11,11 @@ from main.models.book import Book
 from main.services.book import CreateRoomService
 from main.views import views
 from main.views.book import BookCreateView
+from main.views.booking import bookingView, createBookingView
+from main.views.addBook import addBook
+from main.views.homepage import homePage
 
 urlpatterns = [
-    path('home/', views.homePage, name='homePage'),
-    path('addBook/', views.addBook, name='addBook'),
-    path('booking/', views.booking, name='booking'),
-
     path('', views.home, name="home"),
     #path('register/', views.registerPage, name="register"),
 	#path('login/', views.loginPage, name="login"),  
@@ -31,4 +30,17 @@ urlpatterns = [
                             template_name='../templates/addBook.html', success_url='.'),
                             name='add-book'),
 
+    path('home/', homePage, name='homePage'),
+    path('addBook/', addBook, name='addBook'),
+    path('booking/', bookingView, name='booking'),
+    path('booking/create/', createBookingView, name='createBooking'),
+
+        # path('booking/create/', 
+            #     createBookingView.as_view(service_class= AbstractCreateBookingService,
+            #     form_class=BookingForm,
+            #     model=BookingDetails,
+            #     template_name='main/templates/booking.html',
+            #     success_url='.'
+            #     ), 
+            #     name='create/booking'),
 ]
