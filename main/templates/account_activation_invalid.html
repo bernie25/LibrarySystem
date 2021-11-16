@@ -1,0 +1,6 @@
+{% autoescape off %}
+Hi Mr/Mrs,
+Unfortunately this email has had an invalid activation 
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}
