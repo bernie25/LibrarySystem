@@ -51,18 +51,36 @@ def reqbook(request):
 		
 		return render(request,'../templates/requestBook.html')
 
-#Signup basic registration function
-def signup_view(request):
-    form = UserCreationForm(request.POST)
+#Signup basic registration function with email confirmation
+def signup(request):
+    form = SignUpForm(request.POST)
     if form.is_valid():
-        form.save()
+        user = form.save()
+        user.refresh_from_db()
+        user.profile.first_name = form.cleaned_data.get('first_name')
+        user.profile.last_name = form.cleaned_data.get('last_name')
+        user.profile.email = form.cleaned_data.get('email')
+        # user can't login until link confirmed
+        user.is_active = False
+        user.save()
+        current_site = get_current_site(request)
+        subject = 'Please Activate Your Account'
+        # load a template like get_template() 
+        # and calls its render() method immediately.
+        message = render_to_string('activation_request.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                # method will generate a hash value with user related data
+                'token': account_activation_token.make_token(user),
+            })
+
         #cleaned_data holding the validated form data and authenticate() method takes credentials as keyword arguments,
         #username and password for the default case, checks them against each authentication backend, and returns a User object if the credentials are valid for a backend.
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        #Once user is verified, login() method takes an HttpRequest object and a User object and saves the user’s 
-        #ID in the session, using Django’s session framework. Finally, redirect() method is basically redirecting the logged in user to home URL.
-        login(request, user)
-        return redirect('home')
+        user.email_user(subject, message)
+        return redirect('activation_sent')
+    else:
+            form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+#
