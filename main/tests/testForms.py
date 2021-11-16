@@ -1,4 +1,6 @@
 from forms.forms import SignUpForm
+from django.test import TestCase
+
 
 class SignUpFormTest(TestCase):
     def test_form_has_fields(self):
