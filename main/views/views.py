@@ -7,11 +7,8 @@ def homePage(request):
 from django.shortcuts import render, redirect 
 from django.forms import inlineformset_factory
 from main.services.requestBook.bookreq import *
-
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -53,3 +50,5 @@ def reqbook(request):
 
 		
 		return render(request,'../templates/requestBook.html')
+
+#Email Confirmation 
