@@ -31,11 +31,13 @@ class BookingDetails(models.Model):
 
 #https://dev.to/thepylot/create-advanced-user-sign-up-view-in-django-step-by-step-k9m
 
+#Registration with Confirmation Mail
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=150)
+    signup_confirmation = models.BooleanField(default=False)
 
 def __str__(self):
     return self.user.username
