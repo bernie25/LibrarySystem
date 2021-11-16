@@ -1,12 +1,22 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_text
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect 
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from .tokens import account_activation_token
+from django.template.loader import render_to_string
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.forms import inlineformset_factory
 from main.services.requestBook.bookreq import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from forms.forms import SignUpForm
+from .tokens import account_activation_token
 
 # Create your views here.
 from main.models import *
@@ -86,6 +96,10 @@ def signup(request):
 #
 
 #Email Activation 
+def activation_sent_view(request):
+    return render(request, 'activation_sent.html')
+
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -100,6 +114,6 @@ def activate(request, uidb64, token):
         user.profile.signup_confirmation = True
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('homepage.html')
     else:
         return render(request, 'activation_invalid.html')

@@ -1,8 +1,72 @@
 <!--signup page comes from https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html-->
+<!--& https://dev.to/thepylot/create-advanced-user-sign-up-view-in-django-step-by-step-k9m-->
+<style type="text/css" media="screen">
+    
+  /* All of document */
+  * {
+      box-sizing: border-box;
+      background-color: white;
+  }
+
+  /* Style the header */
+  header {
+      background-color: #8abaae;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+      color: #006a4e;
+  }
+
+  /* Style the footer */
+  footer {
+      background-color: #8abaae;
+      padding: 10px;
+      text-align: center;
+      color: #006a4e;
+      margin-top: 280px; 
+      position: relative;      
+  }
+
+  .menu {
+      display: grid;
+      grid-column-gap: 50px;
+  }
+
+
+  .menu-labels {
+      background-color: #b8d5cd;
+      border: thick solid #006a4e;
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+      color: #006a4e;
+      width: 300px;
+      height: 200px;
+      margin: auto;            
+      justify-content: space-between;
+  }
+
+  .timeLeft{
+      font-size:smaller;
+      background-color: #8abaae;
+  }
+
+  .details {
+      background-color: #8abaae;
+  }
+  
+  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+  @media (max-width: 600px) {
+      nav, article {
+          width: 100%;
+          height: auto;
+      }
+  }
+</style>
 
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Sign up</h2>
+  <h2>Sign up Form</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}

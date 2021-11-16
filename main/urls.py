@@ -14,9 +14,11 @@ from main.views.book import BookCreateView
 from main.views.booking import bookingView, createBookingView
 from main.views.addBook import addBook
 from main.views.homepage import homePage
+from django.conf.urls import url
+from main.views import signup, activation_sent, activate
 
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('', views.homePage, name="home"),
     #path('register/', views.registerPage, name="register"),
 	#path('login/', views.loginPage, name="login"),  
 	#path('logout/', views.logoutUser, name="logout"),
@@ -34,7 +36,12 @@ urlpatterns = [
     path('addBook/', addBook, name='addBook'),
     path('booking/', bookingView, name='booking'),
     path('booking/create/', createBookingView, name='createBooking'),
+    
 
+    path('admin/', admin.site.urls),
+    path('signup/', signup, name='signup'),
+    path('sent/', activation_sent, name="activation_sent"),
+    path('activate/<slug:uidb64>/<slug:token>/', activate, name='activate'),
         # path('booking/create/', 
             #     createBookingView.as_view(service_class= AbstractCreateBookingService,
             #     form_class=BookingForm,
