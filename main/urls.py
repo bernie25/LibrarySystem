@@ -14,6 +14,7 @@ from main.views.book import BookCreateView
 from main.views.booking import bookingView, createBookingView
 from main.views.addBook import addBook
 from main.views.homepage import homePage
+from main.views.signup import signup
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -21,7 +22,7 @@ urlpatterns = [
 	#path('login/', views.loginPage, name="login"),  
 	#path('logout/', views.logoutUser, name="logout"),
     path('reqbook/', views.reqbook, name="reqbook"),
-
+    path('signup/', views.signup, name="signup"),
     path('book/new/',
         BookCreateView.as_view(
                             service_class=CreateRoomService,
