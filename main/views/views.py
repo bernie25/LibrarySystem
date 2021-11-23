@@ -50,6 +50,7 @@ def home(request):
 		# bookAvailableClass()
 
 def reqbook(request):
-
-		
 		return render(request,'../templates/requestBook.html')
+
+def signup(request):
+		return render(request,'../templates/signup.html')
