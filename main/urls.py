@@ -7,7 +7,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from main.forms.bookform import FormBook
-from main.models.book import Book
+from main.models import Book
 from main.services.book import CreateRoomService
 from main.views import views
 from main.views.book import BookCreateView

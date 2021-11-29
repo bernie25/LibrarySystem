@@ -1,10 +1,7 @@
 import re
 from abc import ABC, abstractmethod
-
 from django.core.exceptions import ValidationError
-
-from main.models.book import Book
-
+from main.models import Book
 
 class AbstractCreateRoomService(ABC):
     # @abstractmethod

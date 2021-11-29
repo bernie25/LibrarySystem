@@ -1,5 +1,5 @@
-from main.models.student import Student
-from main.models.librarian import Librarian
+from main.models import Student
+from main.models import Librarian
 
 class UserFactory():
     def createuser(self, form, user):

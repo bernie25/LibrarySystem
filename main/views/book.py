@@ -2,7 +2,7 @@ from typing import Callable
 
 from django.db.models import Model
 
-from main.models.book import Book
+from main.models import Book
 from main.services.book import AbstractCreateRoomService
 from main.views.utils import BaseCreateView, auth_required
 

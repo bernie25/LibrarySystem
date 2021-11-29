@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models.book import Book
+from main.models import Book
 
 class FormBook(forms.ModelForm):
     class Meta:
