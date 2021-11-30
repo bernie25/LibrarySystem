@@ -54,3 +54,6 @@ def reqbook(request):
 
 def signup(request):
 		return render(request,'../templates/signup.html')
+
+def library(request):
+		return render(request,'../templates/library.html')
