@@ -1,0 +1,12 @@
+{% block content %}
+<section class="container">
+    <div class="row">
+        <div class="col">
+            {% for book in books %}
+            {{ book.title }}
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -15,6 +15,7 @@ from main.views.booking import bookingView, createBookingView
 from main.views.addBook import addBook
 from main.views.homepage import homePage
 from main.views.signup import signup
+from main.views.library import library
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('addBook/', addBook, name='addBook'),
     path('booking/', bookingView, name='booking'),
     path('booking/create/', createBookingView, name='createBooking'),
+    path('library', library, name='Library')
 
         # path('booking/create/', 
             #     createBookingView.as_view(service_class= AbstractCreateBookingService,
