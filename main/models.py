@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from enum import Enum
 from django.db import models
 from enum import Enum
 
@@ -21,13 +22,6 @@ class Student(models.Model):
 
 class LibrarySystem(models.Model):
     book_name = models.CharField(max_length=200)
-
-    def _str_(self):
-        return self.title
-
-class Book(models.Model):
-    book_name = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
 
     def _str_(self):
         return self.title
@@ -61,3 +55,12 @@ class Book(models.Model):
     category = models.CharField(max_length=30, blank=True)
 
     def __str__(self) -> str: return self.bookname and self.category and self.bookcode
+   
+
+class BookCreate(models.Model):
+    id = models.AutoField(primary_key=True)
+    book_name = models.CharField(max_length=200)
+    student_number = models.IntegerField()
+
+    def book(self): self.booking_state = BookingStateEnum.BOOKED    
+    #def __str__(self) -> str: return self.id and self.book_name and self.student_number
