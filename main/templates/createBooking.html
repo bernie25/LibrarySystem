@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Your Booking</title>
+        <title>Make Booking Request</title>
     
         <style type="text/css" media="screen">
         
@@ -84,18 +84,24 @@
         </style>
     </head>
 
-    <header>Make Booking</header>
+    <header>Make Booking Request</header>
          
     <h3>By the end this page should be able to make a booking
         using state pattern
     </h3>
 
     <body>
-        <form method="post" class ="makeBooking">{% csrf_token %}
+        <form method="post" class ="makeBooking" onsubmit="bookingAlert()" action="/booking/">{% csrf_token %}
             {{ form.as_p }}
             <input type="submit" class ="submitButton" value="Submit">
         </form>
     </body>
+    
+    <script>
+    function bookingAlert() {
+      alert("Your booking request has been accepted");
+    }
+    </script>
 
     <footer>Thank you</footer>
     

@@ -19,7 +19,6 @@ class Student(models.Model):
     credit_card = models.CharField(max_length=19)
     objects=Studentmanager()
 
-
 class LibrarySystem(models.Model):
     book_name = models.CharField(max_length=200)
 
@@ -27,8 +26,35 @@ class LibrarySystem(models.Model):
         return self.title
 
 class BookingStateEnum(Enum):
+    PENDING = 'pending'
     AVAILABLE = 'available'
     UNAVAILABLE = 'unavailable'
+
+    @classmethod
+    def tuples(cls): return tuple((state.name, state.value) for state in cls)
+
+class Category(models.Model):
+    category_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+class Book(models.Model):
+    id = models.AutoField(primary_key=True)
+    bookname = models.CharField(max_length=30, blank=True)
+    bookcode = models.IntegerField()
+    booking_state = models.CharField(max_length=20, choices=BookingStateEnum.tuples(), default=BookingStateEnum.PENDING)
+    category = models.CharField(Category, default=0, max_length=20)
+
+    # # def __str__(self) -> str: return self.bookname and self.category and self.bookcode
+    # def __str__(self):
+    #     return self.bookname
+
+    def book(self): self.booking_state = BookingStateEnum.AVAILABLE
+
+    def __str__(self) -> str: return self.bookname 
+
 
 class BookingDetails(models.Model):
     book_name = models.CharField(max_length=200)
@@ -48,13 +74,13 @@ class Librarian(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     objects=Librarianmanager()
 
-class Book(models.Model):
-    id = models.AutoField(primary_key=True)
-    bookname = models.CharField(max_length=30, blank=True)
-    bookcode = models.CharField(max_length=30, blank=True)
-    category = models.CharField(max_length=30, blank=True)
+# class Book(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     bookname = models.CharField(max_length=30, blank=True)
+#     bookcode = models.CharField(max_length=30, blank=True)
+#     category = models.CharField(max_length=30, blank=True)
 
-    def __str__(self) -> str: return self.bookname and self.category and self.bookcode
+#     def __str__(self) -> str: return self.bookname and self.category and self.bookcode
    
 
 class BookCreate(models.Model):
