@@ -5,8 +5,6 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
-
 from main.forms.bookform import FormBook
 from main.models import Book
 from main.services.book import CreateRoomService
@@ -17,6 +15,7 @@ from main.views.addBook import addBook
 from main.views.homepage import homePage
 from main.views.signup import signup
 from main.views.library import library
+
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -37,7 +36,8 @@ urlpatterns = [
     path('addBook/', addBook, name='addBook'),
     path('booking/', bookingView, name='booking'),
     path('booking/create/', createBookingView, name='createBooking'),
-    path('library', library, name='Library')
+    path('library', library, name='library'),
+    path('signup', signup, name='signup'),
 
         # path('booking/create/', 
             #     createBookingView.as_view(service_class= AbstractCreateBookingService,

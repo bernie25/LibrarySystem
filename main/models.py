@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from enum import Enum
+import re
+from django import forms
+
 
 class User(AbstractUser):
     pass
@@ -61,3 +64,43 @@ class Book(models.Model):
     category = models.CharField(max_length=30, blank=True)
 
     def __str__(self) -> str: return self.bookname and self.category and self.bookcode
+
+#sign up fields
+
+class Username(forms.CharField):
+    def clean(self, value):
+        value = value.replace(' ', '')
+        if (len(value) > 26):
+            raise forms.ValidationError(self.error_messages['Username should be less than 26 characters'])
+        ''''
+        elif (User.objects.get(value=uname) is not None):
+            raise forms.ValidationError(self.error_messages['Password should be more than 6 characters'])
+        '''''
+        return value    
+
+class Password(forms.CharField):
+
+    def clean(self, value):
+        value = value.replace(' ', '')
+        if (len(value) < 6 or len(value) > 8):
+            raise forms.ValidationError(self.error_messages['Password must be at least 6 characters'])
+        return value
+
+class Name(forms.CharField):
+    def clean(self, value):
+        value = value.replace(' ', '').replace('-', '').replace('\'', '')
+        if (len(value) > 53):
+            raise forms.ValidationError(self.error_messages['Name must be less than 52 characters long'])
+        elif (re.search(r"[1-9]", value) is not None):
+            raise forms.ValidationError(self.error_messages['Name must be less than 52 characters long'])
+        return value
+
+class id_no(forms.CharField):
+
+    def clean(self, value):
+        value = value.replace(' ', '').replace('-', '')
+        if (len(value) > 8):
+            raise forms.ValidationError(self.error_messages['ID numberis only 8 numbers'])
+        elif (re.search("[a-zA-Z0-9\W]") is not None):
+            raise forms.ValidationError(self.error_messages['Only numbers allowed'])
+        return value
