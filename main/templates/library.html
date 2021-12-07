@@ -1,121 +1,15 @@
-<!-- Brief Description: User selects desired book and system checks that it is available;
-     if so user can rent, if not user can sign up to subscription service -->
+{% block content %}
+    <h1>Book List</h1>
 
-     <!DOCTYPE html>
-     <html>
-     <head>
-         <title>View Library</title>
-     
-         <style type="text/css" media="screen">
-         
-             /* All of document */
-             * {
-                 box-sizing: border-box;
-                 background-color: white;
-             }
-     
-             /* Style the header */
-             header {
-                 background-color: #8abaae;
-                 padding: 30px;
-                 text-align: center;
-                 font-size: 35px;
-                 color: #006a4e;
-             }
-     
-             /* Style the footer */
-             footer {
-                 background-color: #8abaae;
-                 padding: 10px;
-                 text-align: center;
-                 color: #006a4e;
-                 margin-top: 280px; 
-                 position: relative;      
-             }
-     
-             .menu {
-                 display: grid;
-                 grid-column-gap: 50px;
-             }
-     
-             .menu-labels {
-                 background-color: #b8d5cd;
-                 border: thick solid #006a4e;
-                 padding: 20px;
-                 font-size: 20px;
-                 text-align: center;
-                 color: #006a4e;
-                 width: 300px;
-                 height: 300px;
-                 margin: auto;            
-                 justify-content: space-between;
-             }
-     
-             .timeLeft{
-                 font-size:smaller;
-                 background-color: #8abaae;
-             }
-     
-             .details {
-                 background-color: #8abaae;
-             }
-             
-             /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-             @media (max-width: 600px) {
-                 nav, article {
-                     width: 100%;
-                     height: auto;
-                 }
-             }
-         </style>
-     </head>
-     
-     <body>
-         <header>View Library</header>
-         
-         <h3>By the end this page should access the Library
-             and be able to show what books are on loan and how long
-             is left
-         </h3>
-     
-         {% block content %}
-         <div class="menu-labels">
-            <form action="/booking/create/" id="details">
-            {% for bookname in view_all_library %}
-                <button type="submit" value="bookName">{{bookname}}</button> 
-                <ul>
-                <li value>Book state: {{bookname.booking_state}}</li>
-                <li>Genre: {{bookname.category}}</li>
-                </ul>
-            {% endfor %}
-            </form>
-        </div>
-         </ul>
-     
-         {% endblock %} 
-<!--      
-         <div class="menu-labels">
-             <form action="/booking/create/" id="details">
-                 <button type="submit" value="bookName">Fowler</button> 
-                 <br>
-                 <timeLeft>5 days remaining</timeLeft>
-             </form>
-         </div>
-         <div class="menu-labels">
-             <a href="/addBook/">
-                 <button type="submit" value="bookName">3 Amigos</button> 
-                 <br>
-                 <timeLeft>5 days remaining</timeLeft>
-             </a>
-         </div> -->
-     
-         <form method="post">{% csrf_token %}
-             {{ form.as_p }}
-             <!-- <input type="submit" value="Submit"> -->
-         </form>
-     
-         <footer>Thank you</footer>
-     </body>
-     </html>
-     
-     
+    {% if book_list %}
+    <ul>
+      {% for book in book_list %}
+      <li>
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no books in the library.</p>
+    {% endif %}       
+{% endblock %}

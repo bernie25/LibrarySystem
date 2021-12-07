@@ -9,7 +9,6 @@ def signup(request):
     if form.is_valid():
         user = form.save()
         factory.createuser(form, user)
-        # user can't login until link confirmed
         user.save()
     else:
             form = SignUpForm()
