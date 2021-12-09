@@ -1,23 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-#Add a book to the library
-def homePage(request):
-    return render(request, 'homePage.html')
-from django.shortcuts import render, redirect 
-from django.forms import inlineformset_factory
 from main.services.requestBook.bookreq import *
-
 from django.contrib.auth import authenticate, login, logout
-
-from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 from main.models import *
 from main.forms import *
 
+#Add a book to the library
+def homePage(request):
+    return render(request, 'homePage.html')
 
 def index(request):
     return HttpResponse("Hello")
@@ -54,3 +47,23 @@ def reqbook(request):
 
 def signup(request):
 		return render(request,'../templates/signup.html')
+        
+def logout(request):
+		return render(request,'../templates/logout.html')
+
+#Create Library
+def libraryView(request, *args, **kwargs):
+    
+    view_all_library = Book.objects.all()
+    return render(request, '../templates/library.html', 
+    {'view_all_library': view_all_library})
+
+
+
+
+
+
+
+
+
+    
