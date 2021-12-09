@@ -30,6 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "login"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -82,6 +84,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        
     }
 }
 

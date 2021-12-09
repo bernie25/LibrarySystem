@@ -47,6 +47,9 @@ def reqbook(request):
 
 def signup(request):
 		return render(request,'../templates/signup.html')
+        
+def logout(request):
+		return render(request,'../templates/logout.html')
 
 #Create Library
 def libraryView(request, *args, **kwargs):
