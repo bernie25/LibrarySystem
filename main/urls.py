@@ -27,7 +27,7 @@ from main.views.homepage import homePage
 from main.views.booking import bookingView, createBookingView
 from main.views.addBook import addBook
 from main.views.homepage import homePage
-from main.views.library import library
+from main.views.Library import library
 from main.views.signup import signup
 
 from main.views.views import *
@@ -64,7 +64,7 @@ urlpatterns = [
     path('booking/create/', createBookingView, name='createBooking'),
     path('library', library, name='library'),
     path('signup/', signup, name='signup'),
-    path('book_form/', bookform, name='book_form'),
+    # path('book_form/', bookform, name='book_form'),
     #url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate,
         #name='activate'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
