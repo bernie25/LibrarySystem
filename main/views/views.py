@@ -1,14 +1,39 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from main.models import Student, User
 from main.services.requestBook.bookreq import *
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from main.views.book import Book
+from datetime import date
+from main.forms import bookform
 
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.shortcuts import render
 from main.models import *
-from main.forms import *
+from django.shortcuts import render
+from main.forms.signupform import SignUpForm
+from main.views.userfactory import UserFactory
+from django.views import generic
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-#Add a book to the library
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+import datetime
+from django.contrib.auth.decorators import login_required, permission_required
+
+# from .forms import RenewBookForm
+from main.forms.renewbookform import RenewBookForm
+
+from django.urls import reverse_lazy
+from main.models import Author
+from django.views.generic.edit import DeleteView, CreateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+
 def homePage(request):
     return render(request, 'homePage.html')
 
@@ -30,7 +55,6 @@ def addBook(request):
 def booking(request):
     return render(request, 'booking.html')
 
-
 @login_required(login_url='login')
 def home(request):
 		if(request.GET.get('mybtn')):
@@ -43,6 +67,9 @@ def reqbook(request):
 
 def signup(request):
 		return render(request,'../templates/signup.html')
+        
+def logout(request):
+		return render(request,'../templates/logout.html')
 
 #Create Library
 def libraryView(request, *args, **kwargs):
@@ -50,8 +77,6 @@ def libraryView(request, *args, **kwargs):
     view_all_library = Book.objects.all()
     return render(request, '../templates/library.html', 
     {'view_all_library': view_all_library})
-
-
 
 def registerPage(request):
 	if request.user.is_authenticated:
@@ -95,10 +120,3 @@ def loginPage(request):
 def logoutUser(request):
 	logout(request)
 	return redirect('login')
-
-
-
-
-
-
-    
