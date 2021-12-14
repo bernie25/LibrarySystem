@@ -1,0 +1,55 @@
+<!-- login.html -->
+<!--CSRF tokens to protect forms from malicious users-->
+<!--https://docs.djangoproject.com/en/3.2/topics/auth/default/-->
+<style type="text/css" media="screen">
+    
+  /* All of document */
+  * {
+      box-sizing: border-box;
+      background-color: white;
+  }
+
+  /* Style the header */
+  h2 {
+      background-color: #8abaae;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+      color: #006a4e;
+  }
+  button,a {
+      border: none;
+      padding: 20px;
+      font-size: 18px;
+      text-align: center;
+      cursor: pointer;
+      color: #026148;
+      justify-content: space-evenly;
+  }
+      button:hover {
+      opacity: 0.8;
+    }
+  
+
+  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+  @media (max-width: 600px) {
+      nav, article {
+          width: 100%;
+          height: auto;
+      }
+  }
+</style>
+
+{% block content %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+
+
+<a href="/home"><button>Login</button></a>
+
+<a href="/signup">If you do not have an account please click this link <button>Signup</button></a></a>
+
+  {% endblock %}
