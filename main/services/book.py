@@ -3,12 +3,12 @@ from abc import ABC, abstractmethod
 from django.core.exceptions import ValidationError
 from main.models import Book
 
-class AbstractCreateRoomService(ABC):
+class AbstractCreateBookService(ABC):
     # @abstractmethod
     def create_book(self, book: Book) -> Book: pass
 
 
-class CreateRoomService(AbstractCreateRoomService):
+class CreateBookService(AbstractCreateBookService):
     book_number_regex = re.compile(r'^[A-Z]{1,2}-[0-9]{2,3}$')
 
     def create_room(self, book: Book) -> Book:

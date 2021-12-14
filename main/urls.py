@@ -9,7 +9,7 @@ from main.forms.bookingForm import BookingForm
 from main.models import Book, BookingDetails
 
 #Services import
-from main.services.book import CreateRoomService
+from main.services.book import CreateBookService
 from main.services.booking.booking import CreateBookingService
 
 #Views import
@@ -36,7 +36,7 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('book/new/',
         BookCreateView.as_view(
-                            service_class=CreateRoomService,
+                            service_class=CreateBookService,
                             form_class=FormBook,
                             model=Book,
                             template_name='../templates/addBook.html', success_url='.'),
@@ -45,12 +45,14 @@ urlpatterns = [
     #Homepage
     path('', homePage, name='homePage'),
 
-    #Add a new book
-    path('addBook/', addBook, name='addBook'),
-    
     #View Booking
     path('booking/', bookingView, name='booking'),
 
+    path('register/', views.registerPage, name="register"),
+
+	path('login/', views.loginPage, name="login"),  
+    
+	path('logout/', views.logoutUser, name="logout"),
     #Create a new booking
     path('booking/create/', 
             createBookingView.as_view(service_class= CreateBookingService,
@@ -59,6 +61,7 @@ urlpatterns = [
             template_name='createBooking.html',
             success_url='.'), 
             name='booking-create'),
+            
 
     path('library/', libraryView),
 ]
