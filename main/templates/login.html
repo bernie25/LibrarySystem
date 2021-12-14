@@ -1,55 +1,36 @@
-<!-- login.html -->
-<!--CSRF tokens to protect forms from malicious users-->
-<!--https://docs.djangoproject.com/en/3.2/topics/auth/default/-->
-<style type="text/css" media="screen">
+
+<!DOCTYPE html>
+<html>
     
-  /* All of document */
-  * {
-      box-sizing: border-box;
-      background-color: white;
-  }
+<head>
+	<title>Login</title>
+</head>
+<body>
 
-  /* Style the header */
-  h2 {
-      background-color: #8abaae;
-      padding: 30px;
-      text-align: center;
-      font-size: 35px;
-      color: #006a4e;
-  }
-  button,a {
-      border: none;
-      padding: 20px;
-      font-size: 18px;
-      text-align: center;
-      cursor: pointer;
-      color: #026148;
-      justify-content: space-evenly;
-  }
-      button:hover {
-      opacity: 0.8;
-    }
-  
+	<h3 id="form-title">LOGIN</h3>
+	<form method="POST" action="">
+		{% csrf_token %}
+		<div>
+			<input type="text" name="username" placeholder="Username...">
+		</div>
 
-  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-  @media (max-width: 600px) {
-      nav, article {
-          width: 100%;
-          height: auto;
-      }
-  }
-</style>
+		<div>
+			<input type="password" name="password" placeholder="Password..." >
+		</div>
 
-{% block content %}
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    </form>
+		<div>
+			<input type="submit" value="Login">
+		</div>
+	</form>
 
+	{% for message in messages %}
+		<p id="messages">{{message}}</p>
+	{% endfor %}			
 
-<a href="/home"><button>Login</button></a>
+	<div>
+		Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
+	</div>
+	
+</body>
 
-<a href="/signup">If you do not have an account please click this link <button>Signup</button></a></a>
-
-  {% endblock %}
+</html>

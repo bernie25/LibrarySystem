@@ -81,11 +81,8 @@ class Book(models.Model):
 
     def book(self): self.booking_state = BookingStateEnum.AVAILABLE
 
-    def __str__(self) -> str: return self.bookname
 
-    def get_absolute_url(self):
-        """Returns the url to access a particular book instance."""
-        return reverse('book-detail', args=[str(self.id)])
+    def __str__(self) -> str: return self.bookname and self.category and self.bookcode
 
 
 class BookingDetails(models.Model):
