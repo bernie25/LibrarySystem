@@ -1,7 +1,7 @@
 from typing import Callable
-# from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Model
+
 from main.services.booking import *
 from main.models import BookingDetails
 from main.services.booking.booking import AbstractCreateBookingService
@@ -10,9 +10,6 @@ from main.utils import BaseCreateView, auth_required
 #Booking
 def bookingView(request):
     return render(request, 'booking.html')
-
-# def createBookingView(request):
-#     return render(request, 'createBooking.html')
 
 class createBookingView(BaseCreateView, AbstractCreateBookingService):
     service_class: Callable[[], AbstractCreateBookingService] = None

@@ -1,5 +1,4 @@
 from typing import Callable
-
 from django.db.models import Model
 
 from main.models import Book

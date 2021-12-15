@@ -1,44 +1,23 @@
+#Django Imports 
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from main.models import Student, User
-from main.services.requestBook.bookreq import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+#Services Import 
+from main.services.requestBook.bookreq import *
+
+#Views Import
 from main.views.book import Book
-from datetime import date
-from main.forms import bookform
 
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.shortcuts import render
+#Models import
 from main.models import *
-from django.shortcuts import render
-from main.forms.signupform import SignUpForm
-from main.views.userfactory import UserFactory
-from django.views import generic
-from django.contrib.auth.mixins import PermissionRequiredMixin
-
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-import datetime
-from django.contrib.auth.decorators import login_required, permission_required
-
-# from .forms import RenewBookForm
-from main.forms.renewbookform import RenewBookForm
-
-from django.urls import reverse_lazy
 from main.models import Author
-from django.views.generic.edit import DeleteView, CreateView
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
-
+#Homepage
 def homePage(request):
     return render(request, 'homePage.html')
-
-def index(request):
-    return HttpResponse("Hello")
 
 #Add a book to the library
 def addBook(request):
@@ -51,10 +30,11 @@ def addBook(request):
     }
     return render(request, 'addBook.html', context=context)
 
-#Booking
+#Make Booking
 def booking(request):
     return render(request, 'booking.html')
 
+#Login
 @login_required(login_url='login')
 def home(request):
 		if(request.GET.get('mybtn')):
@@ -62,22 +42,22 @@ def home(request):
 		return render(request, '../templates/requestBook.html')
 		# bookAvailableClass()
 
-def reqbook(request):
-		return render(request,'../templates/requestBook.html')
-
+#Signup
 def signup(request):
 		return render(request,'../templates/signup.html')
-        
+
+#Logout
 def logout(request):
 		return render(request,'../templates/logout.html')
 
-#Create Library
+#View Library
 def libraryView(request, *args, **kwargs):
     
     view_all_library = Book.objects.all()
     return render(request, '../templates/library.html', 
     {'view_all_library': view_all_library})
 
+#Register
 def registerPage(request):
 	if request.user.is_authenticated:
 		return redirect('home')
@@ -96,7 +76,7 @@ def registerPage(request):
 		context = {'form':form}
 		return render(request, '../templates/register.html', context)
 
-
+#Login
 def loginPage(request):
 	if request.user.is_authenticated:
 		return redirect('home')
@@ -115,7 +95,6 @@ def loginPage(request):
 
 		context = {}
 		return render(request, '../templates/login.html', context)
-
 
 def logoutUser(request):
 	logout(request)
