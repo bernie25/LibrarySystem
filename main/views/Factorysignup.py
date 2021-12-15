@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.forms.signupform import SignUpForm
+from main.forms.Factorysignupform import SignUpForm
 from main.views.userfactory import UserFactory
 
 #Signup basic registration function

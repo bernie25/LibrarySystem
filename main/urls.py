@@ -23,7 +23,7 @@ from main.views.book import BookCreateView
 from main.views.booking import bookingView, createBookingView
 from main.views.addBook import addBook
 from main.views.homepage import homePage
-from main.views.signup import signup
+from main.views.Factorysignup import signup
 from main.views.views import logout
 
 urlpatterns = [
@@ -58,5 +58,10 @@ urlpatterns = [
 	path('login/', views.loginPage, name="login"),  
     
 	path('logout/', views.logoutUser, name="logout"),
+
+    path('signup/', signup, name='signup'),
+    path('register/', registerPage, name='register'),
+    #path('book/<uuid:pk>/renew/', views.renew_book_librarian, name='renew-book-librarian'),
+
 ]
 
