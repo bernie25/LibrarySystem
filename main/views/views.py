@@ -16,10 +16,6 @@ from main.views.book import Book
 from main.models import *
 from main.models import Author
 
-#Homepage
-def homePage(request):
-    return render(request, 'homePage.html')
-
 #Add a book to the library
 def addBook(request):
     if request.method == 'POST':
