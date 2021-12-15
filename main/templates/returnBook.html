@@ -1,10 +1,9 @@
-<!-- Brief Description: User selects desired book and system checks that it is available;
-     if so user can rent, if not user can sign up to subscription service -->
+<!-- Brief Description: User page to return book-->
 
      <!DOCTYPE html>
      <html>
      <head>
-         <title>View Library</title>
+         <title>Return Book</title>
      
          <style type="text/css" media="screen">
          
@@ -83,19 +82,17 @@
      </head>
      
      <body>
-         <header>View Library</header>
+         <header>Return Book</header>
          <form action="/homepage/">
             <button type="submit" class="returnHome">Return Home</button> 
         </form>
          {% block content %}
          <div class="menu-labels">
-            <form action="/booking/create/" id="details">
+            <form action="/homepage/" id="details">
             {% for bookname in view_all_library %}
-                <button type="submit" >Select to book {{bookname}}</button> 
+                <button type="submit" >Select to return {{bookname}}</button> 
                 <ul>
                 <li class="bookname">{{bookname.bookname}}</li>
-                <li value>Book state: {{bookname.booking_state}}</li>
-                <li>Genre: {{bookname.category}}</li>
                 <hr>
                 </ul>
             {% endfor %}
@@ -104,14 +101,13 @@
          </ul>
      
          {% endblock %} 
-     
+       
          <form method="post">{% csrf_token %}
              {{ form.as_p }}
-             <!-- <input type="submit" value="Submit"> -->
          </form>
      
          <footer>Thank you</footer>
      </body>
-     </html>
      
+     </html>
      

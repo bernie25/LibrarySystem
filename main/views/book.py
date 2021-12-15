@@ -3,12 +3,12 @@ from typing import Callable
 from django.db.models import Model
 
 from main.models import Book
-from main.services.book import AbstractCreateBookService
+from main.services.book import AbstractCreateRoomService
 from main.views.utils import BaseCreateView, auth_required
 
 
-class BookCreateView(BaseCreateView, AbstractCreateBookService):
-    service_class: Callable[[], AbstractCreateBookService] = None
+class BookCreateView(BaseCreateView, AbstractCreateRoomService):
+    service_class: Callable[[], AbstractCreateRoomService] = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
