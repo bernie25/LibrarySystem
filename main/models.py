@@ -18,7 +18,7 @@ class Studentmanager(models.Manager):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    student_number = models.IntegerField(max_length=8)
+    student_number = models.IntegerField()
     objects=Studentmanager()
     def __str__(self):
         return str(self.user) + "["+str(self.student_number)+']'
@@ -64,24 +64,18 @@ class Category(models.Model):
 class Book(models.Model):
 
     id = models.AutoField(primary_key=True)
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    # Foreign Key used because book can only have one author, but authors can have multiple books
     bookname = models.CharField(max_length=30, blank=True)
     bookcode = models.IntegerField()
-    booking_state = models.CharField(max_length=20, choices=BookingStateEnum.tuples(), default=BookingStateEnum.PENDING)
+    booking_state = models.CharField(max_length=20, choices=BookingStateEnum.tuples(), default=BookingStateEnum.AVAILABLE)
     category = models.CharField(Category, default=0, max_length=20)
 
     # # def __str__(self) -> str: return self.bookname and self.category and self.bookcode
     # def __str__(self):
     #     return self.bookname
-    class Meta:
-        ordering = ['bookname', 'author']
-
+    
     def book(self): self.booking_state = BookingStateEnum.AVAILABLE
 
-
-    def __str__(self) -> str: return self.bookname and self.category and self.bookcode
-
+    def __str__(self) -> str: return self.bookname
 
 class BookingDetails(models.Model):
 
@@ -98,6 +92,16 @@ class BookCreate(models.Model):
 
     def book(self): self.booking_state = BookingStateEnum.BOOKED    
     #def __str__(self) -> str: return self.id and self.book_name and self.student_number
+
+class CreateBooking(models.Model):
+    id = models.AutoField(primary_key=True)
+    bookname = models.CharField(Book, max_length=20)
+    booking_state = models.CharField(Book, max_length=20, choices=BookingStateEnum.tuples(), default=BookingStateEnum.AVAILABLE)
+    student_number = models.IntegerField()
+
+    def book(self): self.booking_state = BookingStateEnum.AVAILABLE
+
+    def __str__(self) -> str: return self.bookname 
 
 class Author(models.Model):
     """Model representing an author."""

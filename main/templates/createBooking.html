@@ -73,6 +73,14 @@
                 margin: 30px;
                 font-size: large;
             }
+            .returnHome {
+                border-color: #006a4e;
+                padding: 10px;
+                font-size: 30px;
+                margin-right: 0px;
+                color: #006a4e;
+                margin-top: 0px;
+            }
 
             /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
             @media (max-width: 600px) {
@@ -86,23 +94,27 @@
 
     <header>Make Booking Request</header>
          
-    <h3>By the end this page should be able to make a booking
-        using state pattern
-    </h3>
+    <form action="/homepage/">
+        <button type="submit" class="returnHome">Return Home</button> 
+    </form>
 
     <body>
-        <form method="post" class ="makeBooking" onsubmit="bookingAlert()" action="/booking/">{% csrf_token %}
+        {% if submitted %}
+            Your Booking has been made
+        {% else %}
+
+        <form method="POST" class ="makeBooking" onsubmit="bookingAlert()" action="/booking/create/">{% csrf_token %}
+        <!-- <form method="post" class ="makeBooking" onsubmit="bookingAlert()" action="/booking/">{% csrf_token %} -->
+            <!-- {% for bookname in view_all_library %} -->
+            <!-- <option name="{{bookname}}">{{bookname.Fowler}}</option> -->
+            <!-- {% endfor %} -->
             {{ form.as_p }}
+
             <input type="submit" class ="submitButton" value="Submit">
         </form>
+        {% endif %}
     </body>
     
-    <script>
-    function bookingAlert() {
-      alert("Your booking request has been accepted");
-    }
-    </script>
-
     <footer>Thank you</footer>
     
 </html>

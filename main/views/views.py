@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+
 #Services Import 
 from main.services.requestBook.bookreq import *
 
@@ -44,7 +45,7 @@ def home(request):
 
 #Signup
 def signup(request):
-		return render(request,'../templates/library.html')
+		return render(request,'../templates/signup.html')
 
 #Logout
 def logout(request):
