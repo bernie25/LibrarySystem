@@ -14,7 +14,3 @@ $ python manage.py migrate
 ```shell
 $ python manage.py runserver
 ```
-
-# Please Login with these Details
-# username = 
-# 
