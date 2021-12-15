@@ -1,9 +1,11 @@
 from django import forms
 
-from main.models import BookingDetails
+from main.models import CreateBooking
+
 
 class BookingForm(forms.ModelForm):
     class Meta: 
-        model = BookingDetails
-        fields = ('book_name', 
+        model = CreateBooking
+        fields = ('bookname', 
+                  'booking_state',
                   'student_number',)

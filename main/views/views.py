@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 #Services Import 
 from main.services.requestBook.bookreq import *
@@ -62,19 +63,17 @@ def registerPage(request):
 	if request.user.is_authenticated:
 		return redirect('home')
 	else:
-		form = CreateUserForm()
+		form = UserCreationForm()
 		if request.method == 'POST':
-			form = CreateUserForm(request.POST)
+			form = UserCreationForm(request.POST)
 			if form.is_valid():
 				form.save()
-				user = form.cleaned_data.get('username')
-				messages.success(request, 'Account was created for ' + user)
+				username = form.cleaned_data.get('username')
+				messages.success(request, 'Account was created for ' + username)
 
 				return redirect('login')
-			
 
-		context = {'form':form}
-		return render(request, '../templates/register.html', context)
+		return render(request, '../templates/register.html', {'form':form})
 
 #Login
 def loginPage(request):
@@ -99,3 +98,20 @@ def loginPage(request):
 def logoutUser(request):
 	logout(request)
 	return redirect('login')
+
+#Signup basic registration function using factory design pattern
+from main.views.Factorysignup import SignUpForm
+from main.views.userfactory import UserFactory
+def signup(request):
+    if request.method == 'POST':
+        factory = UserFactory()
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            factory.createuser(form, new_user)
+            new_user.save()
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
+

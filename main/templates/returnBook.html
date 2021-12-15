@@ -1,17 +1,17 @@
-<!-- Brief Description: User selects desired book and system checks that it is available;
-     if so user can rent, if not user can sign up to subscription service -->
+<!-- Brief Description: User page to return book-->
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Bookings</title>
+    <title>Return Book</title>
 
     <style type="text/css" media="screen">
-    
+
         /* All of document */
         * {
             box-sizing: border-box;
             background-color: white;
+            list-style-type: none;
         }
 
         /* Style the header */
@@ -21,6 +21,15 @@
             text-align: center;
             font-size: 35px;
             color: #006a4e;
+        }
+
+        .returnHome {
+           border-color: #006a4e;
+           padding: 10px;
+           font-size: 30px;
+           margin-right: 0px;
+           color: #006a4e;
+           margin-top: 0px;
         }
 
         /* Style the footer */
@@ -38,36 +47,28 @@
             grid-column-gap: 50px;
         }
 
-
         .menu-labels {
             background-color: #b8d5cd;
             border: thick solid #006a4e;
             padding: 20px;
-            font-size: 30px;
+            font-size: 20px;
             text-align: center;
             color: #006a4e;
-            width: 300px;
-            height: 200px;
+            width: 500px;
+            height: 500px;
             margin: auto;            
             justify-content: space-between;
-        }
-
-        .timeLeft{
-            font-size:smaller;
-            background-color: #8abaae;
+            margin-top: 50px;
         }
 
         .details {
-            background-color: #8abaae;
+           background-color: #8abaae;
         }
-        
-        .returnHome {
-            border-color: #006a4e;
-            padding: 10px;
-            font-size: 30px;
-            margin-right: 0px;
-            color: #006a4e;
-            margin-top: 0px;
+
+        .bookname {
+           font-weight: bold;
+           font-size: x-large;
+           list-style-type: none;
         }
 
         /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
@@ -81,33 +82,31 @@
 </head>
 
 <body>
-    <header>Your Bookings</header>
-    
+    <header>Return Book</header>
     <form action="/homepage/">
-        <button type="submit" class="returnHome">Return Home</button> 
-    </form>
+       <button type="submit" class="returnHome">Return Home</button> 
+   </form>
+    {% block content %}
+    <div class="menu-labels">
+       <form action="/homepage/" id="details">
+       {% for bookname in view_all_library %}
+           <button type="submit" >Select to return {{bookname}}</button> 
+           <ul>
+           <li class="bookname">{{bookname.bookname}}</li>
+           <hr>
+           </ul>
+       {% endfor %}
+       </form>
+   </div>
+    </ul>
 
-    <div class="menu-labels">
-        <form action="/return/" id="details">
-            <button type="submit" value="bookName">Fowler</button> 
-            <br>
-            <timeLeft>5 days remaining</timeLeft>
-        </form>
-    </div>
-    <div class="menu-labels">
-        <a href="/return/">
-            <button type="submit" value="bookName">3 Amigos</button> 
-            <br>
-            <timeLeft>5 days remaining</timeLeft>
-        </a>
-    </div>
+    {% endblock %} 
 
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
-        <!-- <input type="submit" value="Submit"> -->
     </form>
 
     <footer>Thank you</footer>
 </body>
-</html>
 
+</html>
